@@ -58,7 +58,7 @@ class TriageAgent:
             method="POST",
         )
         try:
-            with urllib.request.urlopen(request, timeout=60) as response:
+            with urllib.request.urlopen(request, timeout=300) as response:
                 payload = json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")[:500]
@@ -79,7 +79,7 @@ class TriageAgent:
             "classification (benign/suspicious/malicious), severity (low/medium/high/critical), "
             "confidence (0..1), rationale, evidence (list), recommended_actions (list), and "
             "needs_human_review (boolean). The only write-like tool creates a proposal; never claim "
-            "that containment was executed. Escalate uncertainty and high impact for human review."
+            "that containment was executed. Escalate uncertainty and high impact for human review. /no_think"
         )
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": system},
