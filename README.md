@@ -14,8 +14,8 @@ SentinelLoop is a small, original SOC triage prototype for the AI Agentic Engine
 ## Requirements
 
 - Python 3.10 or later.
-- An API key for an OpenAI-compatible chat-completions endpoint. The default is OpenAI; compatible local or hosted endpoints can be configured with `OPENAI_BASE_URL` and `OPENAI_MODEL`.
-- Network access to the configured model endpoint.
+- Ollama and a tool-capable model for free local inference (recommended: `qwen3:4b`). A hosted OpenAI-compatible endpoint can also be configured with `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `OPENAI_MODEL`.
+- Internet access is needed once to download Ollama and the model. After that, inference runs on your computer and does not use paid API credits.
 
 The Python application uses only the standard library. The API key is sent to the endpoint you configure. Do not use real customer alerts in this prototype.
 
@@ -33,7 +33,13 @@ Copy-Item .env.example .env
 notepad .env
 ```
 
-Set `OPENAI_API_KEY` in `.env`. If using a compatible service, also set its base URL and model name. The application reads this project-local file at startup. Do not commit `.env`.
+Install Ollama from [ollama.com/download](https://ollama.com/download), then open PowerShell and download the model once:
+
+```powershell
+ollama pull qwen3:4b
+```
+
+Keep the defaults in `.env` (`http://localhost:11434/v1` and `qwen3:4b`). No real API key is needed for local Ollama; leave `OPENAI_API_KEY` blank. Ollama runs its local endpoint in the background. The model download is several GB and local speed depends on your computer. Do not commit `.env`.
 
 ### macOS / Linux
 
@@ -45,7 +51,7 @@ python -m pip install -e .
 cp .env.example .env
 ```
 
-Set `OPENAI_API_KEY` in `.env`. If using a compatible service, also set its base URL and model name. The application reads this project-local file at startup. Do not commit `.env`.
+Install Ollama, run `ollama pull qwen3:4b`, and keep the local URL and model defaults in `.env`. No paid API key is needed for local use. Do not commit `.env`.
 
 ## Run one alert
 
@@ -61,7 +67,7 @@ The result contains classification, severity, confidence, evidence, recommendati
 sentinelloop evaluate
 ```
 
-This sends every row in `data/traces.jsonl` to the configured model and writes `reports/evaluation.json` and `reports/dashboard.html`. Open the HTML file in a browser. Metrics are computed from the model's observed predictions; they are not prefilled claims. The authored trace labels are synthetic reference labels, not a production benchmark.
+This sends every row in `data/traces.jsonl` to the configured model and writes `reports/evaluation.json` and `reports/dashboard.html`. Open the HTML file in a browser. Metrics are computed from the model's observed predictions; they are not prefilled claims. The authored trace labels are synthetic reference labels, not a production benchmark. Evaluation is slower on a local model and uses your computer's resources.
 
 ## Architecture
 
