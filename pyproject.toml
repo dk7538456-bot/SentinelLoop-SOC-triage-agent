@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentinelloop-agent"
+version = "0.1.0"
+description = "An LLM-guided SOC alert triage agent with auditable, approval-gated actions"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+sentinelloop = "sentinelloop.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

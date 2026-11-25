@@ -45,7 +45,7 @@ python -m pip install -e .
 cp .env.example .env
 ```
 
-Export the variables from `.env` in your shell (or set them through your environment manager); the project intentionally does not load `.env` automatically.
+Set `OPENAI_API_KEY` in `.env`. If using a compatible service, also set its base URL and model name. The application reads this project-local file at startup. Do not commit `.env`.
 
 ## Run one alert
 
@@ -94,4 +94,3 @@ This sends every row in `data/traces.jsonl` to the configured model and writes `
 - **Production readiness:** Prototype only. No live response integrations; containment is approval-gated. Needs larger representative validation, calibration, monitoring, access/privacy controls, and analyst review.
 - **Total time:** Enter your actual time spent; do not estimate from this README.
 - **Own-work declaration:** Review the implementation, adapt it, and only confirm the form statement if it accurately reflects your submission and the assessment rules.
-

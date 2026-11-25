@@ -1,0 +1,3 @@
+{"indicator":"198.51.100.23","type":"ipv4","reputation":"reported in synthetic training feed","confidence":"medium","notes":"Documentation-only TEST-NET address"}
+{"indicator":"203.0.113.77","type":"ipv4","reputation":"no report in synthetic feed","confidence":"low","notes":"Documentation-only TEST-NET address"}
+{"indicator":"example.invalid","type":"domain","reputation":"no report in synthetic feed","confidence":"low"}

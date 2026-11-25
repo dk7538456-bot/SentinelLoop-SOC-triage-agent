@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-01-12T02:14:00Z",
+  "alert_type": "credential_abuse",
+  "user": "svc-backup",
+  "host": "FIN-LAP-07",
+  "source_ip": "198.51.100.23",
+  "summary": "Repeated failures followed by success from an unfamiliar address and an unusual archive read."
+}

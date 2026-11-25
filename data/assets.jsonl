@@ -1,0 +1,5 @@
+{"asset_id":"ENDPOINT-001","hostname":"FIN-LAP-07","owner":"Finance","criticality":"high","internet_facing":false,"notes":"Synthetic inventory record"}
+{"asset_id":"ENDPOINT-002","hostname":"ENG-WS-14","owner":"Engineering","criticality":"medium","internet_facing":false,"notes":"Synthetic inventory record"}
+{"asset_id":"ENDPOINT-003","hostname":"VPN-GW-01","owner":"IT","criticality":"critical","internet_facing":true,"notes":"Synthetic inventory record"}
+{"asset_id":"ACCOUNT-001","username":"svc-backup","privilege":"service","owner":"IT","notes":"Synthetic identity record"}
+{"asset_id":"ACCOUNT-002","username":"a.khan","privilege":"standard","owner":"Engineering","notes":"Synthetic identity record"}
