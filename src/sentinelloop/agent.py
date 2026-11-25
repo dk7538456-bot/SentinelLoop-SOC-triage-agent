@@ -5,6 +5,7 @@ import json
 import os
 import urllib.error
 import urllib.request
+from urllib.parse import urlparse
 from typing import Any
 
 from .tools import TOOL_DEFINITIONS, run_tool
@@ -19,8 +20,8 @@ class TriageAgent:
                  model: str | None = None, max_turns: int = 6) -> None:
         self._load_dotenv()
         self.api_key = api_key or os.getenv("OPENAI_API_KEY", "")
-        self.base_url = (base_url or os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")).rstrip("/")
-        self.model = model or os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+        self.base_url = (base_url or os.getenv("OPENAI_BASE_URL", "http://localhost:11434/v1")).rstrip("/")
+        self.model = model or os.getenv("OPENAI_MODEL", "qwen3:4b")
         self.max_turns = max_turns
 
     @staticmethod
@@ -33,22 +34,27 @@ class TriageAgent:
                 line = line.strip()
                 if line and not line.startswith("#") and "=" in line:
                     key, value = line.split("=", 1)
-                    os.environ.setdefault(key.strip(), value.strip().strip("\"'"))
+                    os.environ.setdefault(key.strip(), value.strip().strip("\\\"'"))
 
     def _chat(self, messages: list[dict[str, Any]]) -> dict[str, Any]:
-        if not self.api_key:
-            raise AgentError("OPENAI_API_KEY is missing. Copy .env.example to .env and set your key.")
+        local_endpoint = urlparse(self.base_url).hostname in {"localhost", "127.0.0.1", "::1"}
+        if not self.api_key and not local_endpoint:
+            raise AgentError("OPENAI_API_KEY is missing. Set a key for your hosted endpoint in .env.")
         body = json.dumps({
             "model": self.model,
             "messages": messages,
             "tools": TOOL_DEFINITIONS,
             "tool_choice": "auto",
-            "response_format": {"type": "json_object"},
             "temperature": 0.1,
         }).encode("utf-8")
+        headers = {"Content-Type": "application/json"}
+        # Ollama's OpenAI-compatible endpoint accepts a placeholder bearer token,
+        # but makes no external API request and does not bill for local inference.
+        if self.api_key or local_endpoint:
+            headers["Authorization"] = f"Bearer {self.api_key or 'ollama'}"
         request = urllib.request.Request(
             f"{self.base_url}/chat/completions", data=body,
-            headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
+            headers=headers,
             method="POST",
         )
         try:
@@ -77,7 +83,7 @@ class TriageAgent:
         )
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": system},
-            {"role": "user", "content": "Triage this alert JSON:\n" + json.dumps(alert, ensure_ascii=False)},
+            {"role": "user", "content": "Triage this alert JSON:\\n" + json.dumps(alert, ensure_ascii=False)},
         ]
         audit: list[dict[str, Any]] = []
         for _ in range(self.max_turns):
