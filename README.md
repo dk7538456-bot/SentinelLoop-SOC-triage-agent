@@ -39,7 +39,7 @@ Install Ollama from [ollama.com/download](https://ollama.com/download), then ope
 ollama pull qwen3:4b
 ```
 
-Keep the defaults in `.env` (`http://localhost:11434/v1` and `qwen3:4b`). No real API key is needed for local Ollama; leave `OPENAI_API_KEY` blank. Ollama runs its local endpoint in the background. The model download is several GB and local speed depends on your computer. Do not commit `.env`.
+Keep the defaults in `.env` (`http://127.0.0.1:11434/v1` and `qwen3:4b`). No real API key is needed for local Ollama; leave `OPENAI_API_KEY` blank. Ollama runs its local endpoint in the background. The model download is several GB and local speed depends on your computer. Do not commit `.env`.
 
 ### macOS / Linux
 
@@ -91,6 +91,7 @@ This sends every row in `data/traces.jsonl` to the configured model and writes `
 - `data/assets.jsonl`, `data/intel.jsonl`: local synthetic enrichment sources.
 - `examples/alert.json`: sample alert input.
 - `reports/`: generated evaluation and monitoring artifacts (after running evaluation).
+- `docs/architecture.svg`: architecture diagram.
 
 ## Assessment answers (edit to match your actual run)
 
@@ -100,3 +101,4 @@ This sends every row in `data/traces.jsonl` to the configured model and writes `
 - **Production readiness:** Prototype only. No live response integrations; containment is approval-gated. Needs larger representative validation, calibration, monitoring, access/privacy controls, and analyst review.
 - **Total time:** Enter your actual time spent; do not estimate from this README.
 - **Own-work declaration:** Review the implementation, adapt it, and only confirm the form statement if it accurately reflects your submission and the assessment rules.
+
