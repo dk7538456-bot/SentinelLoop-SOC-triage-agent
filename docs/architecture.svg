@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#455a7a"/></marker><style>text{font-family:Arial,sans-serif;fill:#172b4d}.title{font-size:30px;font-weight:bold}.label{font-size:20px;font-weight:bold}.small{font-size:16px}.box{fill:#f4f7fb;stroke:#355c8a;stroke-width:2;rx:14}.accent{fill:#e8f2ff}.warn{fill:#fff4e5;stroke:#b7791f}.arrow{stroke:#455a7a;stroke-width:3;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect width="1200" height="700" fill="#ffffff"/><text x="600" y="55" text-anchor="middle" class="title">SentinelLoop SOC Alert Triage — Architecture</text>
+<rect x="45" y="145" width="220" height="115" class="box accent"/><text x="155" y="185" text-anchor="middle" class="label">Alert Input</text><text x="155" y="220" text-anchor="middle" class="small">JSON alert record</text>
+<rect x="350" y="145" width="260" height="115" class="box"/><text x="480" y="185" text-anchor="middle" class="label">Agent Loop</text><text x="480" y="220" text-anchor="middle" class="small">LLM reasoning + tool audit</text>
+<rect x="695" y="90" width="220" height="105" class="box accent"/><text x="805" y="130" text-anchor="middle" class="label">Local Ollama</text><text x="805" y="163" text-anchor="middle" class="small">Qwen3:4b</text>
+<rect x="695" y="235" width="220" height="125" class="box"/><text x="805" y="275" text-anchor="middle" class="label">Mock Enrichment</text><text x="805" y="307" text-anchor="middle" class="small">Asset inventory +</text><text x="805" y="332" text-anchor="middle" class="small">synthetic threat intel</text>
+<rect x="350" y="420" width="260" height="110" class="box warn"/><text x="480" y="460" text-anchor="middle" class="label">Human Review</text><text x="480" y="495" text-anchor="middle" class="small">Containment is proposal only</text>
+<rect x="695" y="440" width="220" height="110" class="box accent"/><text x="805" y="480" text-anchor="middle" class="label">Triage Output</text><text x="805" y="515" text-anchor="middle" class="small">Class, severity, evidence</text>
+<rect x="990" y="440" width="170" height="110" class="box"/><text x="1075" y="480" text-anchor="middle" class="label">Evaluation</text><text x="1075" y="515" text-anchor="middle" class="small">Labels + metrics*</text>
+<path d="M265 202 H350" class="arrow"/><path d="M610 175 H695" class="arrow"/><path d="M610 220 C650 220 650 290 695 290" class="arrow"/><path d="M805 195 V235" class="arrow"/><path d="M480 260 V420" class="arrow"/><path d="M610 475 H695" class="arrow"/><path d="M915 495 H990" class="arrow"/>
+<text x="600" y="625" text-anchor="middle" class="small">* Metrics/dashboard are generated only after evaluation completes successfully.</text>
+<text x="600" y="660" text-anchor="middle" class="small">Synthetic prototype; no production systems are changed.</text>
+</svg>
+
